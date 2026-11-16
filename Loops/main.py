@@ -1,10 +1,9 @@
-print("=== 1. Basic while Loop ===")
+# while Loop
 counter = 1
 while counter <= 5:
     print(f"Counter: {counter}")
     counter += 1
 
-print("\n=== 2. while Loop with break and continue ===")
 number = 0
 while number < 8:
     number += 1
@@ -16,7 +15,7 @@ while number < 8:
         break
     print(f"Processed number: {number}")
 
-print("\n=== 3. for Loop with range() ===")
+# for loop
 for i in range(1, 6):
     print(f"Counting: {i}")
 
@@ -24,22 +23,17 @@ print("Range with step:")
 for value in range(10, 50, 10):
     print(f"Step value: {value}")
 
-print("\n=== 4. for Loop over a List ===")
+# for loop with list
 cities = ["Yangon", "Mandalay", "Naypyidaw", "Taunggyi"]
 for city in cities:
     print(f"City: {city}")
 
-print("\n=== 5. for Loop with enumerate() ===")
-languages = ["Python", "JavaScript", "C#", "SQL"]
-for index, language in enumerate(languages, start=1):
-    print(f"{index}. {language}")
-
-print("\n=== 6. for Loop over a String ===")
+# for loop with string
 keyword = "CODE"
 for letter in keyword:
     print(f"Character: {letter}")
 
-print("\n=== 7. for Loop over a Dictionary ===")
+# for loop with dictionary
 book_inventory = {
     "Python Basics": 15000,
     "Data Structures": 22000,
@@ -48,7 +42,7 @@ book_inventory = {
 for book_title, price in book_inventory.items():
     print(f"Book: {book_title} | Price: {price} MMK")
 
-print("\n=== 8. for Loop with break and continue ===")
+# for loop with break and continue
 scores = [45, 78, 92, -1, 88, 60]
 for score in scores:
     if score < 0:
@@ -59,8 +53,16 @@ for score in scores:
         continue
     print(f"Valid passing score: {score}")
 
-print("\n=== 9. Nested Loops ===")
+# nested for loop
 for row in range(1, 4):
     for col in range(1, 4):
         print(f"[{row},{col}]", end=" ")
     print()
+
+
+colors = ["Red", "Blue", "Black"]
+sizes = ["S", "M", "L"]
+
+for color in colors:
+    for size in sizes:
+        print(f"T-shirt: {color} | Size: {size}")
