@@ -7,17 +7,21 @@ def calculate_average(total, subject_count):
 
 
 def check_pass_all(marks, pass_mark=50):
-    return all(mark >= pass_mark for mark in marks)
+    for mark in marks:
+        if mark < pass_mark:
+            return False
+    return True
 
 
 def determine_grade(average, passed):
     if not passed:
         return "F (Failed)"
-    if average >= 80:
+    elif average >= 80:
         return "A (Distinction)"
-    if average >= 65:
+    elif average >= 65:
         return "B (Credit)"
-    return "C (Pass)"
+    else:
+        return "C (Pass)"
 
 
 def display_report_card(name, subjects, marks):
@@ -32,16 +36,19 @@ def display_report_card(name, subjects, marks):
     print("================================")
     print(f"Student Name: {name}")
     print("--------------------------------")
-    for subject, mark in zip(subjects, marks):
-        status = "Pass" if mark >= 50 else "Fail"
-        print(f"{subject:<15}: {mark} ({status})")
+    for i in range(len(subjects)):
+        subject = subjects[i]
+        mark = marks[i]
+        if mark >= 50:
+            status = "Pass"
+        else:
+            status = "Fail"
+        print(f"{subject}: {mark} ({status})")
     print("--------------------------------")
-    print(f"Total Marks    : {total}")
-    print(f"Average        : {average:.2f}")
-    print(f"Final Result   : {grade}")
+    print(f"Total Marks : {total}")
+    print(f"Average     : {average:.2f}")
+    print(f"Final Result: {grade}")
     print("================================\n")
-
-    return total, average, passed, grade
 
 
 def main():
@@ -61,18 +68,15 @@ def main():
             marks = []
 
             for subject in subjects:
-                while True:
-                    try:
-                        score = int(input(f"Enter marks for {subject} (0-100): "))
-                        if 0 <= score <= 100:
-                            marks.append(score)
-                            break
-                        else:
-                            print("Marks must be between 0 and 100.")
-                    except ValueError:
-                        print("Please enter a valid number.")
+                score = int(input(f"Enter marks for {subject} (0-100): "))
+                marks.append(score)
 
-            total, average, passed, _ = display_report_card(name, subjects, marks)
+            display_report_card(name, subjects, marks)
+
+            total = calculate_total(marks)
+            average = calculate_average(total, len(marks))
+            passed = check_pass_all(marks)
+
             students.append({
                 "name": name,
                 "total": total,
@@ -81,13 +85,17 @@ def main():
             })
 
         elif choice == "2":
-            if not students:
+            if len(students) == 0:
                 print("\nNo student records found.\n")
             else:
                 print("\n--- SAVED STUDENTS ---")
-                for idx, s in enumerate(students, 1):
-                    status = "Passed" if s["passed"] else "Failed"
-                    print(f"{idx}. {s['name']} | Total: {s['total']} | Avg: {s['average']:.2f} | Status: {status}")
+                for i in range(len(students)):
+                    s = students[i]
+                    if s["passed"]:
+                        status = "Passed"
+                    else:
+                        status = "Failed"
+                    print(f"{i + 1}. {s['name']} | Total: {s['total']} | Avg: {s['average']:.2f} | Status: {status}")
                 print()
 
         elif choice == "3":
